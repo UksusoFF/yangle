@@ -217,8 +217,8 @@ $client = new Client([
 
     foreach ($google['items'] ?? [] as $item) {
         $items['G'][] = [
-            'title' => $item['title'],
-            'description' => $item['snippet'],
+            'title' => htmlentities($item['title']),
+            'description' => htmlentities($item['snippet']),
             'url' => $item['link'],
         ];
     }
