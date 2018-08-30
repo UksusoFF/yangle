@@ -33,6 +33,7 @@ $client = new Client([
 <html>
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Custom Yangle Search</title>
     <style type="text/css">
         body {
