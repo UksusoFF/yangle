@@ -83,6 +83,8 @@ $client = new Client([
         .results-content-container {
             width: 50%;
             float: left;
+            padding: 0 15px;
+            box-sizing: border-box;
         }
 
         @media (max-width: 700px) {
@@ -92,8 +94,19 @@ $client = new Client([
             }
         }
 
+        .results-content-container .copyright img {
+            line-height: 20px;
+            font-size: 20px;
+        }
+
+        .results-content-container .copyright img {
+            margin-right: 5px;
+            max-height: 20px;
+            vertical-align: middle;
+        }
+
         .item {
-            margin: 0 30px 30px;
+            margin: 15px 0;
         }
 
         .item a {
@@ -113,6 +126,9 @@ $client = new Client([
         .item .link {
             color: #006621;
             margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .item .desc {
@@ -160,43 +176,21 @@ $client = new Client([
 
     $items['Y'] = [];
 
+    $total['Y'] =
+        '<span class="copyright">' .
+        '<a href="https://yandex.ru" target="_blank"><img src="images/yandex_logo.png"></a>' .
+        (
+        !isset($yandex->response->results) ?
+            strip_tags($yandex->response->error->asXML()) :
+            strip_tags($yandex->response->results->grouping->{'found-docs-human'}->asXML())
+        ) .
+        '</span>';
+
     foreach ($yandex->response->results->grouping->group ?? [] as $groupItem) {
         $items['Y'][] = [
-            'title' => str_replace(
-                [
-                    '<title>',
-                    '</title>',
-                    '<hlword>',
-                    '</hlword>',
-                ],
-                [
-                    '',
-                    '',
-                    '<b>',
-                    '</b>',
-                ],
-                $groupItem->doc->title->asXML()
-            ),
-            'description' => str_replace(
-                [
-                    '<passages>',
-                    '</passages>',
-                    '<passage>',
-                    '</passage>',
-                    '<hlword>',
-                    '</hlword>',
-                ],
-                '',
-                $groupItem->doc->passages->asXML()
-            ),
-            'url' => str_replace(
-                [
-                    '<url>',
-                    '</url>',
-                ],
-                '',
-                $groupItem->doc->url->asXML()
-            ),
+            'title' => strip_tags($groupItem->doc->title->asXML()),
+            'description' => strip_tags($groupItem->doc->passages->asXML()),
+            'url' => strip_tags($groupItem->doc->url->asXML()),
         ];
     }
 
@@ -210,6 +204,16 @@ $client = new Client([
 
     $items['G'] = [];
 
+    $total['G'] =
+        '<span class="copyright">' .
+        '<a href="https://google.ru" target="_blank"><img src="images/google_logo.png"></a>' .
+        (
+        $google['searchInformation']['totalResults'] === '0' ?
+            'РќРёС‡РµРіРѕ РЅРµ РЅР°С€Р»РѕСЃСЊ :(' :
+            "РЅР°С€С‘Р» {$google['searchInformation']['formattedTotalResults']} РѕС‚РІРµС‚РѕРІ"
+        ) .
+        '</span>';
+
     foreach ($google['items'] ?? [] as $item) {
         $items['G'][] = [
             'title' => $item['title'],
@@ -222,13 +226,10 @@ $client = new Client([
 
     <?php foreach ($items as $system => $results): ?>
         <div class="results-content-container">
-            <?php if (empty($results)): ?>
-                <?php echo $system; ?>: Ничего не нашлось :(
-            <?php endif; ?>
+            <?php echo $total[$system]; ?>
             <?php foreach ($results as $result): ?>
                 <div class="item">
                     <p class="title">
-                        <?php echo $system; ?>:
                         <a target="_blank" href="<?php echo $result['url']; ?>">
                             <?php echo $result['title']; ?>
                         </a>
