@@ -1,0 +1,5 @@
+/vendor
+/cache
+/.idea/*
+!/.idea/codeStyleSettings.xml
+.env
