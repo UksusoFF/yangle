@@ -1,0 +1,11 @@
+{
+  "require": {
+    "php": "^7.1",
+    "ext-json": "*",
+    "ext-simplexml": "*",
+    "guzzlehttp/guzzle": "^6.3",
+    "vlucas/phpdotenv": "^2.5",
+    "kevinrob/guzzle-cache-middleware": "^3.2",
+    "doctrine/cache": "^1.8"
+  }
+}
