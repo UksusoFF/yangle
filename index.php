@@ -110,21 +110,23 @@ $client = new Client([
             margin: 15px 0;
         }
 
-        .item a {
+        .item a.title {
             text-decoration: none;
-            color: #609;
+            color: #00f;
             font-size: 1em;
+            display: block;
         }
 
-        .item a:hover {
+        .item a.title:hover {
             text-decoration: underline;
         }
 
-        .item a:visited {
-            color: #1a0dab;
+        .item a.title:visited {
+            color: #609;
         }
 
-        .item .link {
+        .item a.link {
+            text-decoration: none;
             color: #006621;
             margin-bottom: 5px;
             white-space: nowrap;
@@ -230,12 +232,12 @@ $client = new Client([
             <?php echo $total[$system]; ?>
             <?php foreach ($results as $result): ?>
                 <div class="item">
-                    <p class="title">
-                        <a target="_blank" href="<?php echo $result['url']; ?>">
-                            <?php echo $result['title']; ?>
-                        </a>
-                    </p>
-                    <p class="link"><?php echo $result['url']; ?></p>
+                    <a href="<?php echo $result['url']; ?>" target="_blank" class="title">
+                        <?php echo $result['title']; ?>
+                    </a>
+                    <a href="<?php echo $result['url']; ?>" target="_blank" class="link">
+                        <?php echo $result['url']; ?>
+                    </a>
                     <p class="desc"><?php echo $result['description']; ?></p>
                 </div>
             <?php endforeach; ?>
