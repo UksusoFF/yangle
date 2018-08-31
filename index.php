@@ -129,6 +129,7 @@ $client = new Client([
             text-decoration: none;
             color: #006621;
             margin-bottom: 5px;
+            display: block;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
