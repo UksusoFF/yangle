@@ -112,7 +112,7 @@ $client = new Client([
 
         .item a.title {
             text-decoration: none;
-            color: #00f;
+            color: #00c;
             font-size: 1em;
             display: block;
         }
@@ -122,7 +122,7 @@ $client = new Client([
         }
 
         .item a.title:visited {
-            color: #609;
+            color: #551a8b;
         }
 
         .item a.link {
