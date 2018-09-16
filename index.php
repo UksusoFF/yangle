@@ -29,12 +29,14 @@ $client = new Client([
     'handler' => $stack,
 ]);
 
+$search = isset($_GET['q']) ? $_GET['q'] : null;
+
 ?>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Custom Yangle Search</title>
+    <title><?php echo htmlentities(!empty($search) ? $search : ""); ?> Custom Yangle Search</title>
     <style type="text/css">
         body {
             font-family: arial, sans-serif;
@@ -143,7 +145,6 @@ $client = new Client([
 </head>
 <body>
 
-<?php $search = isset($_GET['q']) ? $_GET['q'] : null; ?>
 
 <div class="logo">
     <span style="color: red;">Y</span>
