@@ -43,6 +43,13 @@ $search = isset($_GET['q']) ? $_GET['q'] : null;
             margin-top: 30px;
         }
 
+        @media (prefers-color-scheme: dark) {
+            body {
+                filter: invert(100%);
+                background: black;
+            }
+        }
+
         p {
             margin: 0;
             padding: 0;
